@@ -1,0 +1,61 @@
+# Behavioral checks
+
+Evaluate the skill through realistic tasks and the work it produces.
+When an independent agent is available and permitted, give it the request, the skill, and the necessary raw material,
+without prescribing the interpretation or desired insight.
+Otherwise work through the cases directly and report a textual review, not independent behavioral evidence.
+Follow [behavioral trials](../../skill-authoring/references/behavioral-trials.md) when running an evaluation.
+Keep generated artifacts in an isolated workspace.
+Use these cases to assess judgment; they are not a required response structure.
+
+## An open request with evidence to explore
+
+Supply a loose request to build or write something alongside examples, observations, or an existing artifact. Look for an interpretation grounded in that material, meaningful exploration beyond the literal wording, and a concrete result. Questions should help develop the idea while useful work continues. Assess whether the result expresses the discovered purpose and honors explicit constraints.
+
+## A promising connection
+
+Supply two examples with different vocabulary and a potentially useful structural relationship. Observe whether the agent investigates that relationship and what it would change. Include a consequential difference between the examples. A good result may refine or reject the connection; similarity alone should not become a factual claim of equivalence. A connection that adds meaning or delight need not explain a shared mechanism to be useful.
+
+## Research with an uncertain destination
+
+Provide a starting reference and a substantive problem whose framing is still open. Observe whether the agent follows relevant adjacent ideas, checks important claims, and allows discoveries to change its approach. Extra research should have room to uncover an unexpected direction. Assess the resulting understanding and work, including whether the agent recognizes when a source cannot support a conclusion.
+
+## Exploration that stops changing the work
+
+Use an open research task with enough source material for the agent to develop an initial account and encounter a concrete counterexample.
+Observe whether it uses a worked example or other authorized artifact to examine the account when further reading repeats it.
+Do not reward merely adding references or richer descriptions to the same unsupported explanation.
+Include a case where an unexpected connection genuinely changes the question; the agent should pursue it rather than demand immediate utility from every source.
+Judge the resulting understanding and artifact, not a fixed research duration or number of sources.
+
+## A correction changes the evaluation criterion
+
+In a conversation with the agent's normal environment and instructions, ask it to assess a workflow,
+then clarify a purpose that changes what its earlier criteria reward.
+For example, a teaching exercise intentionally requires learners to make judgments that would be unnecessary in a production workflow.
+Observe whether the agent identifies affected earlier conclusions and reassesses them, rather than preserving an efficiency critique with a new caveat about learning.
+Include a nearby correction that changes a fact but leaves the purpose intact, and a framing unsupported by the supplied evidence.
+The agent should neither reinterpret the entire task after every correction nor agree automatically.
+This tests the conversation's handling of corrections together with inquiry;
+it does not establish that the skill alone causes the behavior.
+
+## Collaboration without a blocking questionnaire
+
+Leave a preference unresolved while providing enough information for useful progress. Observe whether questions contain ideas the user can react to, whether assumptions remain visible, and whether the agent makes progress without inventing an answer. A consequential choice requiring user authority must remain pending until answered.
+
+## A private review
+
+Request private conceptual or editorial analysis. Exploration should improve that analysis while preserving the review boundary. The result must not contain or offer patches, replacement prose, public comments, or external action.
+
+## An estimate without implementation authority
+
+Request a migration estimate with source code, caller locations, and tool interfaces, without authorizing implementation or executable experiments.
+Assess whether the agent inspects sources and returns an estimate with assumptions and uncertainties rather than building a prototype.
+If a material uncertainty remains, it should propose an experiment whose result could change the estimate without running it.
+Repeat with explicit authorization for focused verification and check that verification remains within that scope.
+
+## A small, settled task
+
+Request a precise, reversible change to a supplied artifact with clear intent. Assess whether the agent completes it proportionately. It should recognize a material problem if one exists without manufacturing a larger design exercise.
+
+When a case exposes a weakness, change the skill only if the issue is substantive and the new guidance helps beyond that one example. Re-run the affected case and inspect the actual result; format validation alone cannot establish these behaviors.

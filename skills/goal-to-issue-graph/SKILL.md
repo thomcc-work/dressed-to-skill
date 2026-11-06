@@ -1,0 +1,340 @@
+---
+name: goal-to-issue-graph
+description: Turn a brief or broad goal into a local TicGit issue graph with observable acceptance conditions for the goal, tickets with defined scope and stopping conditions, justified dependencies, and integration checks. Use only when the user explicitly selects this skill or requests a local TicGit issue graph. Not for working out one ticket's implementation path, choosing an architecture, ordinary execution of an already coherent ticket, a single difficult debugging problem, slow commands alone, or tracker operations alone.
+disable-model-invocation: true
+---
+
+# Goal to issue graph
+
+Use only when explicitly selected by the user, including in systems that do not enforce the invocation metadata.
+An ordinary planning or implementation request does not select this workflow.
+
+The purpose of an issue graph is to enable sustained, substantive work without repeated human feedback.
+Ask consequential questions requiring human judgment up front; investigate discoverable facts instead of asking the human to supply them.
+For material uncertainty that execution must resolve, specify bounded investigations, how their results change the next action, and when to reconsider or stop the affected approach.
+Identify unavoidable later human-feedback points without making independent work wait for them.
+This purpose does not authorize execution.
+
+Work backward from the promised result, not forward from the current implementation's limitations.
+A graph is useful only if completing its tasks establishes the user's goal without redefining success.
+
+Work through the numbered stages in order because each makes a different promise.
+First recover the goal and inspect the actual problem (§§1–2); then fix the root's success conditions while translating current knowledge into bounded tickets (§§3–4).
+Those tickets may change as discovery resolves uncertainty, but completing them must continue to satisfy the root issue's requirements.
+Next connect their outputs with justified dependencies and add applicable integration, quality, and maintenance work (§§5–6); review whether the whole graph can establish the root outcome (§7); create or update it in the selected local store (§8); then hand it off.
+A ready graph is a plan for product work, not evidence that the product already succeeds.
+
+This skill owns decomposition, graph review, and direct creation or revision of local TicGit issues for the authorized project work, not implementation.
+Use [TicGit](../ticgit/SKILL.md) for tracker operations and follow its local-use and remote-operation boundaries.
+Use one explicitly selected local store for the task, including tasks spanning multiple repositories.
+If none has been selected, ask the user which existing store to use; do not infer it from the current directory.
+The store may belong to a participating repository or a dedicated local planning repository.
+Identify the affected repositories in each ticket. The store's repository does not select a remote issue tracker.
+If TicGit or the selected store is unavailable, report that the local graph cannot be persisted.
+Continue other authorized work using the current system's existing planning facilities; do not install TicGit,
+initialize a store, or fall back to a remote tracker automatically.
+Inspect the existing graph and reuse matching issues.
+Selecting this workflow authorizes local graph creation and revision within the requested scope;
+do not require separate approval for each ticket. A review, read-only, or proposal-only request still forbids mutation.
+Reading remote issues as context does not authorize importing or publishing them.
+Imports, metadata transfer, and remote issue changes remain separate, explicitly requested operations with
+a verified source or destination and scope.
+Use `implementation-plan` when explicitly asked to work out or review one ticket's implementation plan.
+An already-actionable ticket needs no separate plan; keep any needed implementation detail in its existing record rather than a parallel artifact.
+Represent an unsettled architecture as a decision task; use [independent design deliberation](../architecture-design/references/deliberation.md) when design selection is also authorized.
+
+## 1. Recover the governing goal
+
+Read the request, relevant decisions and authoritative project guidance before interpreting a short prompt through recent work.
+Distinguish the whole objective from a current milestone, paused goal or worker assignment.
+For a continuation, inspect the supporting records before treating a summary's constraints as user decisions.
+
+Define the root issue's requirements concisely:
+
+- Required observable outcomes, including distinct correctness, coverage, usability and maintenance requirements actually supported by the request.
+- The complete target population and authoritative inputs, revisions or environments.
+- Allowed ways to satisfy each outcome, explicit exclusions and material unresolved decisions.
+
+Cite the source of consequential constraints, especially compatibility, preservation and required human approval.
+Do not promote an implementation guard, provisional policy or conservative assumption into a user requirement.
+Ask focused questions when missing context changes the objective or permitted behavior.
+Continue independent investigation.
+If uncertainty concerns discoverable facts rather than a user choice, assign a bounded discovery task with a concrete output and consuming task.
+Do not require a full specification before a graph can describe discovery work.
+
+## 2. Inspect the actual problem
+
+Read the relevant producers, inputs, consumers, tests, operational guidance and existing work.
+Use repository evidence to distinguish completed capability, missing implementation, missing input facts, unverified behavior and genuinely unresolved requirements.
+Do not turn a determined specification rule into a human decision because its implementation is missing.
+Reuse existing facilities and valid completed evidence instead of planning them again.
+
+For goals using “all” or “every,” inspect the original population, not only the subset the current pipeline accepts.
+Look for boundary cases excluded by current parsers, filters, manifests or sampling.
+A reconciled exclusion report does not prove successful coverage of those items.
+Record where the evidence is stored and what each recorded result actually establishes; representative successes cannot establish completion for the whole population.
+
+## 3. Define when the root issue is complete
+
+Separate outcomes that can succeed independently.
+For example, implementing every resolved rule does not prove every required item has a usable route, and covering items through exceptions does not prove the general rules are implemented.
+Require both when the user requires both.
+
+Define what successful completion means for each required item or workflow through the real consumer.
+Keep allowed evidence modes distinct: a permitted manual exception need not meet an automated derivation's proof obligations, but it must still produce the promised result.
+Do not invent fallback permission or require one mechanism universally when the goal permits alternatives.
+A held, skipped, missing-input or unverified state may complete diagnosis; it cannot count as a successful item unless diagnosis is itself the requested outcome.
+
+The root issue's requirements state what must ultimately be true; intermediate tickets describe the current route toward it.
+Keep those requirements stable as discovery changes that route.
+Preserve governing requirements, not every acceptance condition introduced by an earlier plan.
+When an approach changes, remove or supersede obsolete intermediate milestones and dependencies while retaining the required results and their acceptance conditions.
+Check that the replacement can achieve the root outcome without first completing the abandoned approach.
+When closing an issue because it was cancelled, duplicated, superseded, or closed for administrative reasons, record that its work was not completed, with a reason and successor where applicable.
+Update consuming dependencies; a closed-but-unmet prerequisite cannot count as successful completion.
+Finishing the initial task list is not permission to shrink the population or weaken required acceptance.
+Separate completion of the planning request from completion of the planned product.
+
+## 4. Draft bounded outcome tickets
+
+Choose the smallest useful deliverables with observable acceptance, not one ticket per file, implementation layer or failure message.
+Group failures under a shared invariant when one general correction addresses them.
+Leave low-risk mechanics to implementation; do not manufacture interfaces or exact file edits for unsettled designs.
+For implementation goals, define results that involve the necessary components, have a specific scope, and establish or extend a working end-to-end path.
+Do not merely reorder whole-subsystem tickets that still defer integration until every component is complete.
+
+Require every executable task to have a specific deliverable, explicit scope and an observable stopping condition.
+A title and acceptance criteria do not bound a task if completing it still requires deciding which substantial work to include or what counts as enough.
+Recursively split unbounded tasks into smaller outcome tasks, checking each child by the same rule until every executable leaf is bounded.
+Preserve the parent's required outcome across the children, including integration; narrowing each child must not silently discard required work.
+Stop splitting when the leaf can be completed and checked without another substantial scope or decomposition decision.
+Do not substitute arbitrary time limits, one-file tasks or isolated implementation phases for useful bounded outcomes.
+
+Parent tickets may group broad outcomes, but are not executable assignments.
+When missing knowledge prevents a sound split, create a bounded discovery or decision task that supplies the information needed for the next decomposition.
+Keep the remaining parent explicitly pending that decomposition; calling it provisional does not make it bounded or ready.
+Already-authorized bounded tasks need not wait for decomposition of independent branches.
+Do not invent speculative implementation children merely to make the graph look complete.
+
+For example, “improve import support” is not a bounded assignment.
+“Support the documented CSV dialect through the import consumer, including its malformed-row cases” can be one bounded child.
+If the parent requires other formats too, retain those obligations and continue decomposing them; completing CSV support does not complete the parent.
+
+When an early decision can materially change decomposition, distinguish ready assignments from provisional downstream work.
+Fully specify the decision and architecture-independent outcomes first; revise affected downstream tickets after the choice.
+A complete list of requirements does not make the implementation tasks ready to execute.
+Require only the inspection results needed for the specified decision, not an exhaustive audit of the current implementation by default.
+Parent tickets and work that still needs a decision or decomposition are not ready implementation assignments.
+Name the first concrete action before marking a ticket ready.
+If measurement or reproduction is needed for a decision, make that evidence gathering an actionable child rather than marking the decision parent ready.
+After splitting, check what each child says about the work, its prerequisites and its first action against current code and inputs; a new child can inherit stale parent assumptions.
+
+For every implementation ticket marked ready, state the chosen approach and its basis in current code, an established pattern or applicable experimental evidence.
+Name the mechanism and the existing path it extends or replaces, where applicable; an outcome such as “support CSV import” does not settle how to implement it.
+Check that the cited basis supports the step this ticket must add, not merely a nearby helper or a manually supplied intermediate result.
+Record material implementation uncertainty and what finding would require reconsidering the approach.
+Treat an approach as settled when it is chosen and supported by evidence, not proven successful in advance.
+If an unresolved choice could materially change scope, dependencies or maintenance costs, the ticket is not ready for implementation; give that choice a bounded discovery or decision task.
+Routine implementation choices and debugging remain part of implementation.
+Do not require a complete implementation plan, a prototype for every change or a new approval step to establish readiness.
+
+Each ticket needs enough detail for another agent to act without reconstructing hidden decisions:
+
+- A concrete title and useful result tied to the root issue's requirements; use the title alongside the tracker ID once the issue is created.
+- Work with defined scope and stopping conditions, its subsystem or principal files, and applicable instructions and current evidence.
+- Acceptance cases and the actual consumer or check that will establish success, including necessary negatives.
+- Required facts, fixtures or component outputs, who or what supplies them, and which must be available before the ticket can be completed.
+- Material exclusions and uncertainty that affect the work.
+
+### Acceptance and completion evidence
+
+Acceptance criteria make the ticket's expected result checkable, and closing the ticket must show that those criteria were met on the revision being closed.
+For each criterion, identify its current wording, the result that tests it, the revision that result supports, and the acceptance decision by whoever is responsible for closing the ticket.
+Use the existing ticket fields and applicable evidence to make that chain inspectable; do not create parallel records just to restate it.
+
+For example, a CLI ticket might name a criterion "Quiet output":
+"with the quiet option enabled, the command prints no progress messages."
+Its existing evidence field can point to a CLI test result that records the command, option, observed output, and tested revision.
+If the ticket is later closed against a newer integrated revision, whoever closes it checks whether that result still applies; if a relevant change makes that uncertain, explain why the evidence still applies or obtain applicable evidence before accepting the "Quiet output" criterion.
+A populated evidence field and a passing result at an earlier revision do not by themselves prove that the current criterion is met on the revision being closed.
+
+#### Identify and map each criterion
+
+Give acceptance criteria short, consistent [descriptive names](../holistic-writing/references/editorial-pass.md#use-descriptive-names).
+Retain or assign stable criterion IDs when evidence records or tools need exact matches across revisions.
+Keep an ID for an unchanged criterion; assign a new one when the acceptance condition materially changes,
+and never reuse retired identifiers. A different implementation approach alone does not change the criterion's identity.
+Include the descriptive name when referring to a criterion by its ID in prose; use the ID for exact matching.
+For each criterion, identify the interface or component the check must reach and the kind of evidence it needs, such as a CLI fixture, property test, benchmark, API result or artifact inspection.
+State applicable contexts when different input origins or execution paths could change the result.
+
+Connect every current criterion to the evidence that supports it, using the existing ticket's acceptance/evidence fields when they can express that relationship clearly.
+For each criterion, identify its current text or source reference, status and concrete supporting evidence.
+In the example, the "Quiet output" criterion points to the CLI result and states what output establishes the criterion.
+A shared result may support several criteria when the record identifies what proves each one.
+Keep these connections in one authoritative record; link from handoffs and recovery state rather than maintaining parallel copies.
+Use a separate table of criteria and their evidence only when the existing record cannot show which criteria are supported or an applicable workflow requires one.
+Treat agent-authored workflow formats as revisable choices, not user requirements; do not introduce stricter shared formats merely to standardize how tickets are closed.
+
+#### Tie evidence to the revision being closed
+
+Identify the issue and exact integrated revision being closed, and preserve references to the criteria whose acceptance was checked.
+For work spanning repositories, identify the relevant revision in each affected repository and the combination checked.
+Create additional snapshots only when existing versioned records cannot establish those identities.
+Retain the revision actually tested and establish applicability to the closing revision; never present reused evidence as newly executed.
+For the "Quiet output" criterion, if the closing revision changes the command's output path, the earlier result cannot be treated as proof without resolving that mismatch; if the relevant behavior is unchanged and applicability is established, reuse it without claiming a new test run.
+For permitted outcomes that require no code change, identify the applicable versioned inputs, products or recorded results instead of inventing a fixing commit.
+
+#### Decide and record whether the issue is complete
+
+Whoever is responsible for closing the issue, not merely a contributing worker, must check that every current criterion is met by applicable evidence before reporting successful completion.
+When closing the issue, record the acceptance decision and explain any newly resolved differences between criteria, evidence, and revisions, linking to existing evidence rather than repeating its narrative.
+Missing criteria, partial results, stale criterion text, unsupported worker reports and unresolved revision mismatches prevent closing the issue as completed.
+An investigation may complete with no change only when its acceptance permits that outcome; cancellation or supersession is not evidence that acceptance was met.
+
+#### Validate without overstating the result
+
+Use existing tracker validation where it checks these connections between criteria and evidence; otherwise inspect them directly without creating another validation artifact by default.
+Do not claim tool-enforced completion for checks performed only by inspection.
+Do not build a new tracker or validation framework merely to write the plan.
+Checking that the records are complete and reference the right versions prevents omissions and reuse of outdated evidence; whoever closes the issue must still check that the evidence actually proves each criterion.
+Planning defines this contract, not completed evidence or permission to execute the checks.
+
+Acceptance conditions and evidence records explain when work is complete; they do not replace decisions about whether the approach can still succeed.
+For risks that can invalidate an approach or prevent completion, name the observable trigger and affected outcome.
+Assign an owner for the next decisive check or choice.
+State what its plausible results change and when to stop the affected approach, revise the graph or obtain a user decision.
+An investigation that rules out the planned route must specify what to do next and who is responsible, not leave only a blocked dependent task.
+Do not require a separate risk register or branches for ordinary tickets.
+
+Keep shared policy and acceptance conditions that apply to multiple tickets in one authoritative location.
+Link directly from each affected ticket and retain brief reminders there only where they prevent a concrete mistake.
+Keep each case's expected results in the ticket responsible for that case rather than repeating the common workflow in every body.
+Give effort ranges only when requested and supported; distinguish component work, shared integration waits, uncertainty and elapsed time.
+Do not sum concurrent allowances into an unsupported completion forecast.
+
+## 5. Derive completion dependencies
+
+Tickets define deliverables; dependencies explain which deliverable must exist before another can be closed.
+Keep that distinction explicit: dependency edges state what must be ready before a ticket can close; separately decide its priority and who can safely work on it concurrently.
+
+State the edge direction: `A → B` means A supplies something needed to close B.
+Explain that output or semantic prerequisite for every edge.
+Priority, shared files, a common author and convenient sequencing are not dependencies.
+Among ready implementation tasks, prioritize establishing or extending a result the intended consumer can use, while respecting the required milestone order.
+Record scheduling priority separately; do not invent dependency edges to express this preference.
+An unblocked ticket is not necessarily unowned or safe to edit concurrently.
+
+Specify what evidence will suffice to accept each ticket; identify fixtures where needed and reuse suitable shared fixtures.
+Do not assume the existence of a field proves the real-world fact it represents.
+If a particular fixture needs external evidence, name the missing output and producer, and add that completion dependency before closure.
+Do not make every component wait for an unrelated population-wide acquisition task.
+Conditional or synthetic fixtures may test predicates but cannot replace required evidence from actual cases.
+
+Allow independent preparation where possible.
+When a required dependency becomes concrete during discovery, update the graph rather than concealing it in prose or pretending the original graph was exhaustive.
+
+## 6. Include integration, quality and maintenance where required
+
+Assign these checks to graph work; do not execute implementation or product acceptance without authorization.
+Reuse existing inspection and measurement evidence where valid.
+
+### Plan an early end-to-end path
+
+Dependencies should expose the earliest point at which the graph can demonstrate a real result, not arrange components into a long queue that postpones integration.
+For implementation goals, plan the smallest supported end-to-end result as early as its genuine prerequisites allow, even with only basic features.
+Use the actual producer, intervening boundaries and final consumer; do not substitute hand-written intermediate outputs or bypass the boundary under test.
+Extend the working path through repeated integration as capability and scale increase, rather than postponing consumer checks until final integration.
+If a working baseline already exists, exercise the changed path or next failing boundary instead of rebuilding a demonstration of unchanged behavior.
+An early limited delivery establishes a working path, not full goal acceptance; retain all required features, population and quality conditions.
+
+### Check interactions and scale
+
+When independent components share semantics or materially increase resource use, place a useful combined checkpoint before final integration.
+Specify an actual interacting path and its negative cases; test consequential scale and interactions early enough to change the approach.
+Require a measured larger delivery when small-fixture success cannot establish viability.
+Do not impose a full-profile run per ticket or invent universal resource limits.
+Assign later interacting changes their affected cross-component regressions.
+
+Make end-to-end acceptance use the actual supported producer, serialized or deployed representation, and final consumer where those boundaries matter.
+Expected outputs are test assertions, not substitutes for generation or evidence of input validity.
+Account for changed, lost and wrong results, not only gains.
+
+### Set usability acceptance
+
+For usability requirements, choose cases and expected behavior independently of whichever outputs later pass.
+Explain how they support the assessment of quality and exercise known failure modes.
+Keep coverage of the whole population separate from assessments of quality based on samples.
+Distinguish diagnostic metrics from acceptance criteria: a measurement can inform an assessment of quality without defining success.
+For each required aspect of quality, state which results prevent completion or require correcting or reconsidering the approach, and who must act next.
+When the acceptable standard or a necessary user judgment is unresolved, keep that decision explicit; do not invent a cutoff or count reporting the result as satisfying the requirement.
+
+### Demonstrate maintainability
+
+For maintainability requirements, choose demonstrations against the expected ongoing workflow and known maintenance risks, not merely an easy operation with prepared inputs.
+For routine data updates, use the supported workflow, not case-specific code patches.
+Include input preparation and recurring manual work when they are material sources of upkeep.
+State what the chosen operation proves; add another only if a material part of the maintainability requirement remains untested.
+For example, adding a regular item may not exercise the required workflow for correcting evidence or refreshing inputs.
+Replaying one frozen snapshot proves reproducibility, not that updates are maintainable.
+
+## 7. Review the graph in both directions
+
+The preceding stages build a route from root outcomes through ticket deliverables to evidence.
+Review that route from both ends: every root criterion must have work that can verify it, and every required ticket must contribute to a root criterion.
+Ask whether an authorized agent can continue substantive work without the user present, including what consequential success or failure findings change its next action.
+Resolve missing human choices or result-dependent next actions rather than leaving the user to notice when the work needs redirection.
+
+Trace every root criterion backward to tickets and evidence from the intended consumer.
+Trace every required ticket forward to a root criterion; remove unrelated work or mark it outside the required graph.
+Check dependency existence, direction, reasons and cycles, and ensure every required node reaches the root.
+Check every executable leaf for a specific deliverable, explicit scope and an observable stopping condition; recursively split any that still fail this check.
+For every implementation ticket marked ready, also check its stated approach, supporting evidence and material uncertainty against the readiness requirements in §4; specific acceptance cases alone do not establish readiness.
+A parent awaiting information before it can be split into executable tasks needs an investigation or decision task with someone responsible for it, defined scope, and a stopping condition; splitting its implementation work remains pending.
+Do not call the whole graph ready to execute while it still contains work that needs such decomposition.
+A structurally valid graph does not prove that all required work is included, that the plan is feasible, or that the implementation is correct.
+
+Check whether the planned completion rules correctly handle a previously excluded item, a missing fixture, an allowed alternative route, an interaction failure and a routine update where applicable.
+Could every listed ticket close while the promised outcome still fails?
+If yes, repair the acceptance or missing work rather than adding vague “review everything” tickets.
+Use independent review when consequential scope or dependency judgment remains uncertain, not as a mandatory ceremony for a small obvious graph.
+If working without subagents, review the graph directly and state any remaining uncertainty,
+without claiming independent evidence.
+Check that the planned completion review rejects an omitted criterion, stale issue body, mismatched revision and a closed prerequisite whose required result is missing.
+Review reporting obligations in shared contracts as well as individual tickets.
+Require a concrete consumer or evidence need for each mandated format; reuse existing versioned records when they establish the same criterion coverage and result identities.
+Remove unnecessary matrices, copied bodies, hashes and validation reports without weakening the acceptance checks they were meant to support.
+
+State how changes to governing instructions, inputs, interfaces or integrated outputs invalidate affected evidence.
+Final acceptance must concern the same current inputs and product; reuse unaffected evidence instead of rerunning everything by habit.
+
+## 8. Create or update the local issue graph directly
+
+Create or reuse the root and bounded outcome issues directly in the selected local TicGit store, unless the request is for review, read-only, or proposal-only work.
+Keep the graph, dependencies, and acceptance records in those issues; link existing authoritative specifications and evidence rather than copying them.
+Do not require an intermediate Markdown plan, writeup, or separate materialization approval.
+Files needed as CLI input are transport, not a second maintained plan.
+Add an index, diagram, or other representation only for a concrete consumer, and derive it from the tracker rather than maintaining competing graphs.
+
+Use actual issue IDs for dependency operations and pair them with descriptive titles in handoffs.
+Read back the actual bodies, links, and dependency edges before claiming creation or revision succeeded.
+Record shared requirements and interface guarantees once in the root issue or link to where they are already defined from affected children.
+Issue creation does not authorize implementation beyond the existing task, tracker initialization, or tracker administration.
+If local tracker access is unavailable, report the blocked tracker step without claiming it happened.
+Continue other authorized work using existing planning facilities; do not substitute a remote tracker or a new maintained plan.
+
+## Cross-domain check
+
+For “index every document in the old archive and keep updates routine,” inventory the archive itself, not just formats today's extractor accepts.
+Separate successful ingestion from actual searchability.
+Plan format/input discovery and required support around an initial supported archive document passing through actual ingestion and search.
+Expand that working path through mixed-format consumer checks, whole-archive verification and a supported new-document update.
+An unsupported PDF recorded as skipped is not a searchable document.
+An explicitly permitted alternative representation can satisfy coverage only when it works through the search consumer; it does not excuse missing required extractor behavior.
+
+## Handoff
+
+Provide the root issue's requirements, tickets with defined scope and stopping conditions, explained dependency edges, acceptance criteria connected to their checks, and material unresolved decisions.
+Name who is responsible for execution and closing issues, and where the authoritative record of criteria and evidence is kept; leave checks not yet run explicitly pending.
+State inspected and unexamined scope, whether the graph can expand through discovery, what validation actually ran, and whether tracker IDs exist.
+Do not report planned checks as executed or the product as complete because its graph is ready.

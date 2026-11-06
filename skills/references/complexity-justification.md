@@ -1,0 +1,67 @@
+# Justify added complexity
+
+## Purpose
+
+Use these checks when it is unclear why a mechanism is needed, who will use it, or what must vary.
+Keep a mechanism only when it meets a current requirement, serves an independent consumer, addresses a reproduced failure, or satisfies a pre-existing hard constraint.
+“Might be useful later” is insufficient.
+Ordinary local implementation and reuse with established independent consumers and a shared invariant need no extra procedure.
+These checks establish necessity, not approval to expand scope.
+
+## Inputs
+
+- proposed mechanism and the concrete problem it is intended to solve
+- current implementation task and explicit requirements
+- repository callers and consumers
+
+For reusable machinery, evaluate separately whether variation is required and whether it needs an abstraction or hook.
+
+## Procedure
+
+For a speculative mechanism, identify the current requirement, reproduced failure, or hard constraint that needs it.
+If none exists, defer it and stop.
+If the justification needs no reusable machinery or configurable policy, report the smallest direct solution and stop.
+Otherwise, continue below.
+
+1. Identify the first concrete consumer: the current use.
+2. State exactly what must vary and what related behavior can remain fixed.
+3. Decide whether each variation is required by the task, compatibility, or another repository constraint.
+   Defer variation without such evidence.
+4. Independently evaluate the proposed implementation mechanism.
+   Search for a second pre-existing or independently mandated consumer with materially shared behavior.
+5. If no independent second consumer exists, challenge the mechanism:
+   - can the required variability remain concrete or local?
+   - what actual duplication would exist without the abstraction?
+   - does a separate hard constraint require the abstraction or hook?
+6. Keep reusable machinery without a second consumer only when that constraint requires it; state the constraint.
+
+## Output
+
+For the early stop above, report the mechanism, its evidence or missing justification, and the decision to keep or defer it.
+Use the remaining fields only for reusable machinery or configurable policy.
+
+- `KEEP_VARIABILITY` or `DEFER_VARIABILITY`
+- what must vary and the evidence that requires it
+- behavior that remains deliberately fixed
+- `KEEP_ABSTRACTION` or `DEFER_ABSTRACTION`
+- first consumer
+- independent second consumer, if any
+- behavior the consumers need to share
+- separate hard constraint, if that justifies the abstraction
+
+## Constraints
+
+- “might be useful later” is not a second user.
+- Multiple possible values are not multiple consumers.
+- A consumer introduced only by the proposed design is not independent evidence.
+- A second consumer justifies only the narrowest mechanism required by the materially shared behavior.
+- A hard constraint must be pre-existing or independently mandated, cite its authoritative source, and not arise from the proposed mechanism.
+- Required variability does not by itself justify a reusable implementation mechanism.
+- One required configurable input does not justify making adjacent policy configurable.
+- Two syntactically similar call sites are not enough if their semantics differ.
+- Do not force duplication when a real shared invariant already exists.
+
+## Examples
+
+- Consult: a retry service proposed for a command that has no observed transient failure; a plugin hook justified by a possible future backend.
+- Skip: a local condition required by the current task; extracting two existing callers that must obey the same established invariant.
